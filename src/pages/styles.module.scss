@@ -1,0 +1,12 @@
+.cotainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 4rem;
+
+    img {
+        height: 26rem;
+        object-fit: cover;
+        filter: drop-shadow(5px 5px 5px #5d048d);
+    }
+}
