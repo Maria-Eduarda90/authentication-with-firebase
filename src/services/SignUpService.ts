@@ -4,12 +4,6 @@ import { destroyCookie, setCookie } from "nookies";
 import { toast } from "react-toastify";
 import { auth } from "../firebase/config";
 
-type testeProps = {
-  name: string;
-  email: string;
-  password: string;
-};
-
 export function SignUpService(email: string, password: string): void {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

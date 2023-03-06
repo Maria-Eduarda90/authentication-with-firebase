@@ -1,16 +1,12 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { destroyCookie, setCookie } from 'nookies';
 import { useState, FormEvent } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-import { auth } from '../../firebase/config';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Router from 'next/router';
 
 import styles from './styles.module.scss';
 import { SignUpService } from '../../services/SignUpService';
