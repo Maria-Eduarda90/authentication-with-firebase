@@ -12,6 +12,7 @@ import { Button } from "../Button";
 import { Input } from "../Input";
 
 import styles from './styles.module.scss';
+import { signInService } from "../../services/SignInService";
 
 
 export function SignIn(){
@@ -21,26 +22,7 @@ export function SignIn(){
     function handleSignIn(e: FormEvent): void{
         e.preventDefault();
 
-        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            const user = {
-                name: userCredential.user.displayName,
-                email: userCredential.user.email,
-                metadata: userCredential.user.metadata,
-                refreshToken: userCredential.user.refreshToken,
-                uid: userCredential.user.uid,
-            }
-            destroyCookie(null, "auth");
-            setCookie(undefined, "auth", JSON.stringify(user));
-            Router.push('/home');
-            toast.success('usuario logado com sucesso', {
-                position: toast.POSITION.TOP_RIGHT
-            });
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
+        signInService(email, password);
     }
     
     return(

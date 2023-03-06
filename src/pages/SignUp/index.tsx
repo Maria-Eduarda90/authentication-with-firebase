@@ -13,6 +13,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 
 import styles from './styles.module.scss';
+import { SignUpService } from '../../services/SignUpService';
 
 export default function SignUp(){
     const [name, setName] = useState('');
@@ -27,27 +28,7 @@ export default function SignUp(){
             return alert('Senhas não coincidem');
         }
         
-        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            const user = {
-                name: userCredential.user.displayName,
-                email: userCredential.user.email,
-                metadata: userCredential.user.metadata,
-                refreshToken: userCredential.user.refreshToken,
-                uid: userCredential.user.uid,
-            }
-            destroyCookie(null, "auth");
-            setCookie(undefined, "auth", JSON.stringify(user));
-            toast.success('usuario cadastrado com sucesso', {
-                position: toast.POSITION.TOP_RIGHT
-            });
-            Router.push('/');
-            
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
+        SignUpService(email, password);
     }
 
     return(
