@@ -1,6 +1,8 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { destroyCookie, setCookie } from 'nookies';
 import { useState, FormEvent } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -20,6 +22,10 @@ export default function SignUp(){
 
     function handleSignUp(e: FormEvent): void {
         e.preventDefault();
+
+        if(password != confirmPassword){
+            return alert('Senhas não coincidem');
+        }
         
         createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = {
@@ -29,10 +35,13 @@ export default function SignUp(){
                 refreshToken: userCredential.user.refreshToken,
                 uid: userCredential.user.uid,
             }
-            console.log('user: ', user);
             destroyCookie(null, "auth");
             setCookie(undefined, "auth", JSON.stringify(user));
-            Router.push('/')
+            toast.success('usuario cadastrado com sucesso', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            Router.push('/');
+            
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -79,6 +88,7 @@ export default function SignUp(){
                 <span>
                     Já Possui uma conta? <Link href={'/'} >Entrar</Link>
                 </span>
+                <ToastContainer />
             </div>
         </div>
     );
