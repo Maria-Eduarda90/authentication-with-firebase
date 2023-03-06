@@ -29,7 +29,6 @@ export function SignIn(){
                 refreshToken: userCredential.user.refreshToken,
                 uid: userCredential.user.uid,
             }
-            console.log('user login: ', user);
             destroyCookie(null, "auth");
             setCookie(undefined, "auth", JSON.stringify(user));
             Router.push('/home');
